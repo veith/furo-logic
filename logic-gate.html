@@ -1,0 +1,31 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<script>
+    /**
+     * Boolsche logik...
+     **/
+    class LogicGate extends  (Polymer.Element) {
+        constructor() {
+            super();
+            this._i18nNamespace = 'eka';
+        }
+
+        static get is() {
+            return 'logic-gate';
+        }
+        static get properties() {
+            return {
+              a:Boolean,
+              b:Boolean,
+              /**
+               * negiert Werte
+               */
+              not:{type:Boolean, value:false},
+              condition:{type:String,value:"and"}
+            }
+        }
+    }
+
+    window.customElements.define(LogicGate.is, LogicGate);
+
+</script>

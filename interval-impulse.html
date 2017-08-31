@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+
+<script>
+  /**
+   *
+   *
+   */
+  class IntervalImpulse extends Polymer.Element {
+    constructor() {
+      super();
+
+    }
+
+    static get is() {
+      return 'interval-impulse';
+    }
+
+    static get properties() {
+      return {
+        interval: {type: Number, value: 200, observer: '_interval'},
+        takt: {type: Number, value: 4},
+        /**
+         * Starts interval automatically
+         */
+        auto:Boolean
+      }
+    }
+
+    _interval() {
+
+      let self = this;
+      let cnt = 0;
+      let tick = 'tick';
+      this._intervalObject = setInterval(() => {
+        let pos = cnt++ % self.takt;
+        /**
+         * Fired when interval is
+         * detail payload: position
+         * @event tick
+         */
+        let customEvent = new Event('tick', {bubbles: true});
+        customEvent.detail = pos;
+        this.dispatchEvent(customEvent);
+
+        if (pos == 0) {
+          /**
+           * Fired when tock
+           * detail payload: position
+           * @event tick
+           */
+          let customEvent = new Event('tock', {bubbles: true});
+          customEvent.detail = pos;
+          this.dispatchEvent(customEvent);
+        }
+
+      }, this.interval)
+    }
+
+    stop() {
+      clearInterval(this._intervalObject);
+    }
+  }
+
+  window.customElements.define(IntervalImpulse.is, IntervalImpulse);
+
+</script>
