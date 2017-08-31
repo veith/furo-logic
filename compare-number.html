@@ -76,9 +76,9 @@
            */
           tolerance: {type: Number, value: 0},
           /*
-           * `check-on-method-only` values will only then compared, if you call the check() method. Otherwise the values will be compared on every change of a or b.
+           * `check-on-call-only` values will only then compared, if you call the check() method. Otherwise the values will be compared on every change of a or b.
            */
-          checkOnMethodOnly: {
+          checkOnCallOnly: {
             type: Boolean,
             value: false
           }
@@ -86,49 +86,69 @@
       }
 
       static get observers() {
-        return ['check(a,b)']
+        return ['_check(a,b)']
       }
 
-      check() {
-        if (this.a !== undefined && this.b !== undefined) {
-          let fulfill = false;
-          switch (this.operator) {
-            case "lt":
-            case "<":
-              isTrue = (this.valueA < this.valueB);
-              break;
-            case "le":
-            case "lte":
-            case "<=":
-              isTrue = (this.valueA <= this.valueB);
-              break;
-            case "gt":
-            case ">":
-              isTrue = (this.valueA > this.valueB);
-              break;
-            case "ge":
-            case "gte":
-            case ">=":
-              isTrue = (this.valueA >= this.valueB);
-              break;
-            case "nq":
-            case "neq":
-            case "!=":
-              isTrue = (this.valueA != this.valueB);
-              break;
-            case "eq":
-            case "===":
-              isTrue = (this.valueA === this.valueB);
-              break;
-            default:
-              console.warn('Operator ' + this.operator + ' is not implemented.');
-              isTrue = (this.valueA === this.valueB);
-          }
-          this._setIsTrue(isTrue);
-          this._setIsFale(!isTrue);
 
-
+      _check(details) {
+        if (this.a !== undefined && this.b !== undefined && !this.checkOnCallOnly) {
+          this.check();
         }
+      }
+
+      check(details) {
+
+        let isTrue = false;
+        switch (this.operator) {
+          case "lt":
+          case "<":
+            isTrue = (this.valueA < this.valueB);
+            break;
+          case "le":
+          case "lte":
+          case "<=":
+            isTrue = (this.valueA <= this.valueB);
+            break;
+          case "gt":
+          case ">":
+            isTrue = (this.valueA > this.valueB);
+            break;
+          case "ge":
+          case "gte":
+          case ">=":
+            isTrue = (this.valueA >= this.valueB);
+            break;
+          case "nq":
+          case "neq":
+          case "!=":
+            isTrue = (this.valueA != this.valueB);
+            break;
+          case "eq":
+          case "===":
+            isTrue = (this.valueA === this.valueB);
+            break;
+          default:
+            console.warn('Operator ' + this.operator + ' is not implemented.');
+            isTrue = (this.valueA === this.valueB);
+        }
+        this._setIsTrue(isTrue);
+        this._setIsFale(!isTrue);
+        if (isTrue) {
+          /**
+           * Fired when condition is fulfilled
+           * detail payload: details of function call
+           * @event is-true
+           */
+          this.dispatchEvent(new Event('is-true', {composed: true, bubbles: true, detail: details}));
+        } else {
+          /**
+           * Fired when condition is **not** fulfilled
+           * detail payload: details of function call
+           * @event is-false
+           */
+          this.dispatchEvent(new Event('is-false', {composed: true, bubbles: true, detail: details}));
+        }
+        return isTrue;
       }
     }
 
