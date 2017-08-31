@@ -1,0 +1,137 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="furo-logic">
+
+  <script>
+    /**
+     * `compare-number`
+     * Logic elements for FbP
+     *
+     * Compares 2 numbers **a** and **b** with an optional tolerance to a given condition.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class CompareNumber extends Polymer.Element {
+      static get is() {
+        return 'compare-number';
+      }
+
+      static get properties() {
+        return {
+          /**
+           * first number
+           */
+          a: {
+            type: Number
+          },
+          /**
+           * second number
+           */
+          b: {
+            type: Number
+          },
+          /**
+           * is true if the condition is fulfilled
+           */
+          isTrue: {type: Boolean, notify: true, readonly: true},
+
+          /**
+           * is false if the condition is not fulfilled
+           */
+          isFalse: {type: Boolean, notify: true, readonly: true},
+          /*
+           * condition to compare a with b
+           *          
+           *
+           *| condition     | description  | true |
+           *|---------------|--------------|---|
+           *|`eq`           | a is equal to b   | a = b |
+           *|`equals`       | a is equal to b   | a = b |
+           *|`=`            | a is equal to b   | a = b |
+           *|`lt`           |  a is less then b     | a < b |
+           *|`less then`    |  a is less then b     | a < b |
+           *|`<`            |  a is less then b     | a < b |
+           *|`gt`           |  a is greater then b     | a > b |
+           *|`greater then` |  a is greater then b     | a > b |
+           *|`>`            |  a is greater then b     | a > b |
+           *|`gte`          |  a is greater oder equals to b     | a >= b |
+           *|`>=`           |  a is greater oder equals to b     | a >= b |        
+           *|`lte`          |  a is less oder equals to b     | a <= b |
+           *|`<=`           |  a is less oder equals to b     | a <= b |
+           *|`nq`           |  a is not equals to b     | a != b |
+           *|`neq`          |  a is not equals to b     | a != b |
+           *|`!=`           |  a is not equals to b     | a != b |
+           *
+           */
+          condition: {type: String, value: 'equals'},
+          /**
+           * Optional tolerance for the comparison in %
+           *
+           * if tolerance is 10%, a is 100, b is 90.001, condition is =, the result is **true**
+           * if tolerance is 10%, a is 100, b is 109.99, condition is =, the result is **true**
+           * if tolerance is 10%, a is 90.001, b is 100, condition is =, the result is **true**
+           * if tolerance is 10%, a is 109.99, b is 100, condition is =, the result is **true**
+           */
+          tolerance: {type: Number, value: 0},
+          /*
+           * `check-on-method-only` values will only then compared, if you call the check() method. Otherwise the values will be compared on every change of a or b.
+           */
+          checkOnMethodOnly: {
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+
+      static get observers() {
+        return ['check(a,b)']
+      }
+
+      check() {
+        if (this.a !== undefined && this.b !== undefined) {
+          let fulfill = false;
+          switch (this.operator) {
+            case "lt":
+            case "<":
+              isTrue = (this.valueA < this.valueB);
+              break;
+            case "le":
+            case "lte":
+            case "<=":
+              isTrue = (this.valueA <= this.valueB);
+              break;
+            case "gt":
+            case ">":
+              isTrue = (this.valueA > this.valueB);
+              break;
+            case "ge":
+            case "gte":
+            case ">=":
+              isTrue = (this.valueA >= this.valueB);
+              break;
+            case "nq":
+            case "neq":
+            case "!=":
+              isTrue = (this.valueA != this.valueB);
+              break;
+            case "eq":
+            case "===":
+              isTrue = (this.valueA === this.valueB);
+              break;
+            default:
+              console.warn('Operator ' + this.operator + ' is not implemented.');
+              isTrue = (this.valueA === this.valueB);
+          }
+          this._setIsTrue(isTrue);
+          this._setIsFale(!isTrue);
+
+
+        }
+      }
+    }
+
+    window.customElements.define(CompareNumber.is, CompareNumber);
+  </script>
+</dom-module>
