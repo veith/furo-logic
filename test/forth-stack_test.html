@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>forth-stack test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../forth-stack.html">
+</head>
+<body>
+
+<test-fixture id="BasicTestFixture">
+  <template>
+    <forth-stack></forth-stack>
+  </template>
+</test-fixture>
+
+
+<test-fixture id="drop">
+  <template>
+    <forth-stack></forth-stack>
+  </template>
+</test-fixture>
+
+
+<script>
+  suite('forth-stack', function () {
+
+    test('instantiating the element with default properties works', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.size, 0);
+    });
+
+
+    test('Put something in the stack', function () {
+      var element = fixture('BasicTestFixture');
+      element.put(4334);
+      element.put(4334);
+      assert.equal(element.size, 2);
+    });
+
+
+    test('drop something from stack', function () {
+      var element = fixture('drop');
+      element.put(1);
+      element.put("x");
+
+      assert.equal(element.drop(), "x");
+      assert.equal(element.size, 1);
+    });
+
+    test('duplicate top element', function () {
+      var element = fixture('drop');
+      element.put("a");
+      element.put("x");
+      element.dup();
+
+      assert.equal(element.drop(), "x");
+      assert.equal(element.drop(), "x");
+      assert.equal(element.drop(), "a");
+      assert.equal(element.size, 0);
+    });
+
+   test('duplicate second last element', function () {
+      var element = fixture('drop');
+      element.put("a");
+      element.put("b");
+      element.put("c");
+      element.over();
+
+      assert.equal(element.drop(), "b");
+      assert.equal(element.drop(), "c");
+      assert.equal(element.drop(), "b");
+      assert.equal(element.drop(), "a");
+      assert.equal(element.size, 0);
+    });
+
+    test('emmit stack empty', function (done) {
+      var element = fixture('drop');
+      element.addEventListener('empty', (e) => {
+        assert.equal(element.size, 0);
+        done();
+      });
+      element.put("a");
+      element.put("x");
+      element.dup();
+
+      assert.equal(element.drop(), "x");
+      assert.equal(element.drop(), "x");
+      assert.equal(element.drop(), "a");
+    });
+
+    test('swapping positions', function () {
+      var element = fixture('drop');
+      element.put("a");
+      element.put("x");
+      element.swap();
+
+      assert.equal(element.drop(), "a");
+      assert.equal(element.drop(), "x");
+    });
+
+    test('rotating positions with 2 elements only', function () {
+      var element = fixture('drop');
+      element.put("a");
+      element.put("x");
+      element.rot();
+
+      assert.equal(element.drop(), "a");
+      assert.equal(element.drop(), "x");
+    });
+
+    test('rotating positions with more then 3 elements ', function () {
+      var element = fixture('drop');
+      element.put("a");
+      element.put("b");
+      element.put("c");
+      element.put("d");
+
+      element.rot();
+
+      assert.equal(element.drop(), "b");
+      assert.equal(element.drop(), "c");
+      assert.equal(element.drop(), "d");
+    });
+
+    test('empty stack ', function () {
+      var element = fixture('drop');
+      element.put("a");
+      element.put("x");
+
+
+      assert.equal(element.drop(), "x");
+      assert.equal(element.drop(), "a");
+      assert.equal(element.drop(), undefined);
+
+    });
+
+  });
+</script>
+
+</body>
+</html>
