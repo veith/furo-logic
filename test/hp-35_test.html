@@ -56,6 +56,25 @@
       assert.equal(element.display, 0);
     });
 
+    test('Natural log', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.ln(10), 2.302585092994046);
+      assert.equal(element.display, 2.302585092994046);
+    });
+
+    test('exp', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.exp(1), 2.718281828459045);
+      assert.equal(element.display, 2.718281828459045);
+      element.clear();
+      assert.equal(element.size, 0);
+      element.enter(1);
+      element.enter(1);
+      assert.equal(element.exp(), 2.718281828459045);
+      assert.equal(element.add(), 3.718281828459045);
+
+    });
+
     test('substract values', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.display, 0);

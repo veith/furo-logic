@@ -111,6 +111,38 @@
       this.set('display', res);
       return res;
     }
+    /**
+     * Perform log operation
+     */
+    ln(n){
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if(this.size >= 1){
+        res = Math.log(this.drop());
+      }
+      this.put(res);
+      this.set('display', res);
+      return res;
+    }
+
+    /**
+     * Perform exp operation
+     */
+    exp(n){
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if(this.size >= 1){
+        res = Math.exp(this.drop());
+        this.put(res);
+        this.set('display', res);
+        return res;
+      }
+
+    }
 
     xroot(n){
       if (n !== undefined && n !== '') {
