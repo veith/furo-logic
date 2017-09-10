@@ -1,0 +1,79 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../flowbased-polymer/mixin.html">
+<link rel="import" href="../../paper-input/paper-input.html">
+<link rel="import" href="../hp-35.html">
+
+<dom-module id="hp35-ui">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    t:[[_t]]
+    <hr>
+    z:[[_z]]
+    <hr>
+    y:[[_y]]
+    <hr>
+    x:[[_x]]
+    <hr>
+    <paper-input id="input" value="{{input}}" ƒ-focus="--change"></paper-input>
+
+    <button @-click="--enter(input)">enter</button>
+    <button @-click="--add(input)">+</button>
+    <button @-click="--substract(input)">-</button>
+    <button @-click="--multiply(input)">*</button>
+    <button @-click="--divide(input)">/</button>
+    <button @-click="--clear">clear</button>
+    <hp-35 ƒ-add="--add"
+           ƒ-substract="--substract"
+           ƒ-multiply="--multiply"
+           ƒ-enter="--enter"
+           ƒ-clear="--clear"
+           ƒ-divide="--divide"
+           x="{{_x}}" y="{{_y}}"
+           z="{{_z}}" t="{{_t}}"
+           on-stackchange="_clearInput"></hp-35>
+
+  </template>
+</dom-module>
+
+
+<script>
+  /**
+   * `hp35-ui`
+   *
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   * @mixes FBPMixin
+   */
+  class Hp35Ui extends FBPMixin(Polymer.Element) {
+    constructor() {
+      super();
+    }
+
+    static get is() {
+      return 'hp35-ui';
+    }
+
+    static get properties() {
+      return {
+        empty: {type: String, value: ''}
+      }
+    }
+
+    _clearInput() {
+
+      this.set('input', '');
+      self = this;
+      this.$.input.focus();
+    }
+  }
+
+  window.customElements.define(Hp35Ui.is, Hp35Ui);
+
+</script>

@@ -31,41 +31,41 @@
     test('adding nothing', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.add(), 0);
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
     });
 
     test('adding values', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
 
       assert.equal(element.add(), 24);
       assert.equal(element.size, 1);
       assert.equal(element.drop(), 24);
       assert.equal(element.size, 0);
 
-      assert.equal(element.display, 24);
+      assert.equal(element.x, 24);
     });
 
     test('substract nothing', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.substract(), 0);
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
     });
 
     test('Natural log', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.ln(10), 2.302585092994046);
-      assert.equal(element.display, 2.302585092994046);
+      assert.equal(element.x, 2.302585092994046);
     });
 
     test('exp', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.exp(1), 2.718281828459045);
-      assert.equal(element.display, 2.718281828459045);
+      assert.equal(element.x, 2.718281828459045);
       element.clear();
       assert.equal(element.size, 0);
       element.enter(1);
@@ -75,25 +75,26 @@
 
     });
 
+
     test('substract values', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       element.enter(7);
-      assert.equal(element.display, 7);
+      assert.equal(element.x, 7);
 
       assert.equal(element.substract(), 5);
       assert.equal(element.size, 1);
       assert.equal(element.drop(), 5);
       assert.equal(element.size, 0);
 
-      assert.equal(element.display, 5);
+      assert.equal(element.x, 5);
     });
     test('substract from empty stack', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.substract(19), -19);
-      assert.equal(element.display, -19);
+      assert.equal(element.x, -19);
     });
 
     test('adding with one value in stack', function () {
@@ -108,14 +109,14 @@
 
     test('Multiply values', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       assert.equal(element.multiply(), 144);
-      assert.equal(element.display, 144);
+      assert.equal(element.x, 144);
       assert.equal(element.size, 1);
       assert.equal(element.drop(), 144);
       assert.equal(element.size, 0);
@@ -123,37 +124,37 @@
 
     test('Multiply single value (is like by 0)', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       assert.equal(element.multiply(), 0);
     });
 
     test('Multiply series', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
       element.enter(12);
       element.enter(12);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       assert.equal(element.multiply(), 144);
       assert.equal(element.multiply(), 1728);
       assert.equal(element.size, 1);
-      assert.equal(element.display, 1728);
+      assert.equal(element.x, 1728);
     });
 
     test('Divide values', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       element.enter(3);
-      assert.equal(element.display, 3);
+      assert.equal(element.x, 3);
       assert.equal(element.divide(), 4);
-      assert.equal(element.display, 4);
+      assert.equal(element.x, 4);
       assert.equal(element.size, 1);
       assert.equal(element.drop(), 4);
       assert.equal(element.size, 0);
@@ -161,14 +162,14 @@
 
     test('Divide by 0', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
       element.enter(12);
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       element.enter(0);
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.divide(), Infinity);
-      assert.equal(element.display, Infinity);
+      assert.equal(element.x, Infinity);
       assert.equal(element.size, 1);
       assert.equal(element.drop(), Infinity);
       assert.equal(element.size, 0);
@@ -176,7 +177,7 @@
 
     test('fast entry', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
 
       element.enter(12);
@@ -187,7 +188,7 @@
 
     test('clear stack', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
 
       element.enter(12);
@@ -202,38 +203,38 @@
 
     test('x <-> y Swap', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
 
       element.enter(12);
       element.enter(32);
-      assert.equal(element.display, 32);
+      assert.equal(element.x, 32);
       element.swap();
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
       element.enter(99);
-      assert.equal(element.display, 99);
+      assert.equal(element.x, 99);
       element.swap();
-      assert.equal(element.display, 12);
+      assert.equal(element.x, 12);
 
     });
 
     test('rotate', function () {
       var element = fixture('BasicTestFixture');
       element.clear();
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
       assert.equal(element.size, 0);
 
       element.enter(1);
       element.enter(2);
       element.enter(3);
       element.enter(4);
-      assert.equal(element.display, 4);
+      assert.equal(element.x, 4);
       element.roll();
-      assert.equal(element.display, 1);
+      assert.equal(element.x, 1);
       element.roll();
-      assert.equal(element.display, 2);
+      assert.equal(element.x, 2);
       element.roll();
-      assert.equal(element.display, 3);
+      assert.equal(element.x, 3);
     });
 
 
@@ -242,7 +243,7 @@
       element.clear();
       element.enter(16);
       element.sqrt();
-      assert.equal(element.display, 4);
+      assert.equal(element.x, 4);
 
     });
 
@@ -252,11 +253,11 @@
       element.enter(16);
       element.enter(2);
       element.xroot();
-      assert.equal(element.display, 4);
+      assert.equal(element.x, 4);
       element.clear();
       element.enter(27);
       element.xroot(3);
-      assert.equal(element.display, 3);
+      assert.equal(element.x, 3);
     });
     test('pow x', function () {
       var element = fixture('BasicTestFixture');
@@ -264,17 +265,17 @@
       element.enter(2);
       element.enter(3);
       element.pow();
-      assert.equal(element.display, 8);
+      assert.equal(element.x, 8);
       element.clear();
       element.enter(3);
       element.pow(3);
-      assert.equal(element.display, 27);
+      assert.equal(element.x, 27);
     });
 
     test('template', function () {
       var element = fixture('BasicTestFixture');
       element.clear();
-      assert.equal(element.display, 0);
+      assert.equal(element.x, 0);
     });
 
 

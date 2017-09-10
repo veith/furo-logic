@@ -49,16 +49,33 @@
       ],
       "methods": [
         {
+          "name": "clearStack",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 31,
+              "column": 4
+            },
+            "end": {
+              "line": 34,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
           "name": "put",
           "description": "Add an element to the stack",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 36,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 40,
+              "line": 44,
               "column": 5
             }
           },
@@ -78,11 +95,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 54,
+              "line": 58,
               "column": 4
             },
             "end": {
-              "line": 62,
+              "line": 66,
               "column": 5
             }
           },
@@ -95,11 +112,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 74,
+              "line": 78,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 93,
               "column": 5
             }
           },
@@ -112,11 +129,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 106,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 110,
               "column": 5
             }
           },
@@ -129,11 +146,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 119,
+              "line": 123,
               "column": 4
             },
             "end": {
-              "line": 123,
+              "line": 127,
               "column": 5
             }
           },
@@ -146,11 +163,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 135,
+              "line": 139,
               "column": 4
             },
             "end": {
-              "line": 149,
+              "line": 152,
               "column": 5
             }
           },
@@ -163,11 +180,11 @@
           "privacy": "private",
           "sourceRange": {
             "start": {
-              "line": 158,
+              "line": 161,
               "column": 4
             },
             "end": {
-              "line": 162,
+              "line": 165,
               "column": 5
             }
           },
@@ -194,7 +211,7 @@
           "column": 2
         },
         "end": {
-          "line": 163,
+          "line": 166,
           "column": 3
         }
       },
@@ -3820,6 +3837,597 @@
       },
       "slots": [],
       "tagname": "compare-number"
+    },
+    {
+      "description": "`hp-35`\nsee https://hansklav.home.xs4all.nl/rpn/\nhttp://h10032.www1.hp.com/ctg/Manual/c01579350",
+      "summary": "",
+      "path": "hp-35.html",
+      "properties": [
+        {
+          "name": "_stack",
+          "type": "Array",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 21,
+              "column": 8
+            },
+            "end": {
+              "line": 25,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "[]",
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 26,
+              "column": 8
+            },
+            "end": {
+              "line": 26,
+              "column": 38
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "0",
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "display",
+          "type": "number",
+          "description": "current display / result",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 28,
+              "column": 8
+            },
+            "end": {
+              "line": 28,
+              "column": 55
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          },
+          "defaultValue": "0"
+        }
+      ],
+      "methods": [
+        {
+          "name": "clearStack",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 31,
+              "column": 4
+            },
+            "end": {
+              "line": 34,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "put",
+          "description": "Add an element to the stack",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 40,
+              "column": 4
+            },
+            "end": {
+              "line": 44,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "e"
+            }
+          ],
+          "return": {
+            "desc": "Number The actual size of the stack"
+          },
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "swap",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 41,
+              "column": 4
+            },
+            "end": {
+              "line": 44,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "drop",
+          "description": "drop ( n -- )\n\n drop simply drops the top element of the stack. Running:\n\n 1 2 3 drop\n gives you a stack of:\n\n 1 2 <- Top",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 78,
+              "column": 4
+            },
+            "end": {
+              "line": 93,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "dup",
+          "description": "dup ( n -- n n )\n\n    dup is short for “duplicate” – it duplicates the top element of the stack. For example, try this out:\n\n    1 2 3 dup\n\n    You should end up with the following stack:\n\n    1 2 3 3 <- Top",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 106,
+              "column": 4
+            },
+            "end": {
+              "line": 110,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "over",
+          "description": "over ( n1 n2 -- n1 n2 n1 )\n\n   over is a bit less obvious: it takes the second element from the top of the stack and duplicates it to the top of the stack. Running this:\n\n   1 2 3 over\n   will result in this:\n\n   1 2 3 2 <- Top",
+          "privacy": "public",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 123,
+              "column": 4
+            },
+            "end": {
+              "line": 127,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [],
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "rot",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 47,
+              "column": 4
+            },
+            "end": {
+              "line": 51,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_move",
+          "description": "moves element of an array from index to index*",
+          "privacy": "private",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 161,
+              "column": 4
+            },
+            "end": {
+              "line": 165,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "arr"
+            },
+            {
+              "name": "fromIndex"
+            },
+            {
+              "name": "toIndex"
+            }
+          ],
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "enter",
+          "description": "Enter a number",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 36,
+              "column": 4
+            },
+            "end": {
+              "line": 39,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "name": "roll",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 52,
+              "column": 4
+            },
+            "end": {
+              "line": 54,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "add",
+          "description": "Process an addition",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 60,
+              "column": 4
+            },
+            "end": {
+              "line": 75,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ],
+          "return": {
+            "desc": "Number"
+          }
+        },
+        {
+          "name": "substract",
+          "description": "Process an addition",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 80,
+              "column": 4
+            },
+            "end": {
+              "line": 96,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ],
+          "return": {
+            "desc": "Number"
+          }
+        },
+        {
+          "name": "sqrt",
+          "description": "Perform square root operation",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 101,
+              "column": 4
+            },
+            "end": {
+              "line": 112,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "name": "ln",
+          "description": "Perform log operation",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 116,
+              "column": 4
+            },
+            "end": {
+              "line": 127,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "name": "exp",
+          "description": "Perform exp operation",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 132,
+              "column": 4
+            },
+            "end": {
+              "line": 144,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "name": "xroot",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 4
+            },
+            "end": {
+              "line": 159,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "name": "multiply",
+          "description": "Process a multiplication",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 164,
+              "column": 4
+            },
+            "end": {
+              "line": 179,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ],
+          "return": {
+            "desc": "Number"
+          }
+        },
+        {
+          "name": "pow",
+          "description": "Process power",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 185,
+              "column": 4
+            },
+            "end": {
+              "line": 198,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ],
+          "return": {
+            "desc": "Number"
+          }
+        },
+        {
+          "name": "divide",
+          "description": "Process a division",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 204,
+              "column": 4
+            },
+            "end": {
+              "line": 220,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "n"
+            }
+          ],
+          "return": {
+            "desc": "Number"
+          }
+        },
+        {
+          "name": "clear",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 222,
+              "column": 4
+            },
+            "end": {
+              "line": 224,
+              "column": 5
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/hp35.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 14,
+          "column": 2
+        },
+        "end": {
+          "line": 225,
+          "column": 3
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "Hp35",
+      "attributes": [
+        {
+          "name": "size",
+          "description": "",
+          "sourceRange": {
+            "file": "forth-stack.html",
+            "start": {
+              "line": 26,
+              "column": 8
+            },
+            "end": {
+              "line": 26,
+              "column": 38
+            }
+          },
+          "metadata": {},
+          "type": "number",
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "name": "display",
+          "description": "current display / result",
+          "sourceRange": {
+            "start": {
+              "line": 28,
+              "column": 8
+            },
+            "end": {
+              "line": 28,
+              "column": 55
+            }
+          },
+          "metadata": {},
+          "type": "number"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "empty",
+          "description": "empty",
+          "metadata": {},
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "rotated",
+          "description": "rotated",
+          "metadata": {},
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "swapped",
+          "description": "swapped",
+          "metadata": {},
+          "inheritedFrom": "ForthStack"
+        },
+        {
+          "type": "CustomEvent",
+          "name": "display-changed",
+          "description": "Fired when the `display` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "hp-35"
     },
     {
       "description": "",

@@ -1,5 +1,5 @@
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="forth-stack.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./forth-stack.html">
 
 
 <script>
@@ -10,7 +10,7 @@
    *
    * @customElement
    * @polymer
-   * @demo demo/index.html
+   * @demo demo/hp35.html
    */
   class Hp35 extends ForthStack {
     constructor() {
@@ -24,9 +24,12 @@
     static get properties() {
       return {
         /**
-         * current display / result
+         * current x
          */
-        display: {type: Number, value: 0, notify: true}
+        x: {type: Number, value: 0, notify: true},
+        y: {type: Number, value: 0, notify: true},
+        z: {type: Number, value: 0, notify: true},
+        t: {type: Number, value: 0, notify: true}
       }
     }
 
@@ -35,21 +38,38 @@
      * @param n
      */
     enter(n) {
-      this.put(parseFloat(n));
-      this.set('display', parseFloat(n));
+      if (n !== undefined && n !== '') {
+        this.put(parseFloat(n));
+      }
+      this.updateXYZT();
+    }
+
+    updateXYZT() {
+      this.set('x', this._stack[this._stack.length - 1] || 0);
+      this.set('y', this._stack[this._stack.length - 2] || 0);
+      this.set('z', this._stack[this._stack.length - 3] || 0);
+      this.set('t', this._stack[this._stack.length - 4] || 0);
+      /**
+      * Fired when something in stack changes
+      * detail payload:
+      * @event stackchange
+      */
+      let customEvent = new Event('stackchange', {composed:true, bubbles: true});
+      this.dispatchEvent(customEvent)
     }
 
     swap() {
       super.swap();
-      this.set('display', this._stack[this._stack.length - 1]);
+      this.updateXYZT();
     }
 
 
     rot() {
       super.rot();
-      this.set('display', this._stack[this._stack.length - 1]);
+      this.updateXYZT();
       return this._stack[this._stack.length - 1];
     }
+
     roll() {
       return this.rot();
     }
@@ -70,11 +90,13 @@
           res = this.drop();
         }
       }
+
       this.put(res);
-      this.set('display', res);
+      this.updateXYZT();
       return res;
     }
-  /**
+
+    /**
      * Process an addition
      * @return Number
      */
@@ -92,72 +114,74 @@
         }
       }
       this.put(res);
-      this.set('display', res);
+      this.updateXYZT();
       return res;
     }
 
     /**
      * Perform square root operation
      */
-    sqrt(n){
+    sqrt(n) {
       if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res;
-      if(this.size >= 1){
+      if (this.size >= 1) {
         res = Math.sqrt(this.drop());
       }
       this.put(res);
-      this.set('display', res);
+      this.updateXYZT();
       return res;
     }
+
     /**
      * Perform log operation
      */
-    ln(n){
+    ln(n) {
       if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res;
-      if(this.size >= 1){
+      if (this.size >= 1) {
         res = Math.log(this.drop());
       }
       this.put(res);
-      this.set('display', res);
+      this.updateXYZT();
       return res;
     }
 
     /**
      * Perform exp operation
      */
-    exp(n){
+    exp(n) {
       if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res;
-      if(this.size >= 1){
+      if (this.size >= 1) {
         res = Math.exp(this.drop());
         this.put(res);
-        this.set('display', res);
+        this.updateXYZT();
         return res;
       }
 
     }
 
-    xroot(n){
+    xroot(n) {
       if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res;
-      if(this.size > 1){
+      if (this.size > 1) {
         this.swap();
-        res = Math.pow(this.drop(), 1/this.drop());
+        res = Math.pow(this.drop(), 1 / this.drop());
         this.put(res);
-        this.set('display', res);
+        this.updateXYZT();
         return res;
       }
 
     }
+
     /**
      * Process a multiplication
      * @return Number
@@ -175,7 +199,7 @@
         }
       }
       this.put(res);
-      this.set('display', res);
+      this.updateXYZT();
       return res;
     }
 
@@ -192,7 +216,7 @@
         this.swap();
         let res = Math.pow(this.drop(), this.drop());
         this.put(res);
-        this.set('display', res);
+        this.updateXYZT();
         return res;
       }
 
@@ -216,12 +240,14 @@
         }
       }
       this.put(res);
-      this.set('display', res);
+      this.updateXYZT();
       return res;
     }
 
     clear() {
       super.clearStack();
+      this.updateXYZT();
+
     }
   }
 
