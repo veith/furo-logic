@@ -42,7 +42,10 @@
      * Process an addition
      * @return Number
      */
-    add() {
+    add(n) {
+      if(n !== undefined){
+        this.enter(n);
+      }
       let res = 0;
       if (this.size > 1) {
         res = this.drop() + this.drop();
@@ -60,7 +63,10 @@
      * Process a multiplication
      * @return Number
      */
-    multiply() {
+    multiply(n) {
+      if(n !== undefined){
+        this.enter(n);
+      }
       let res = 0;
       if (this.size > 1) {
         res = this.drop() * this.drop();
@@ -77,7 +83,10 @@
      * Process a division
      * @return Number
      */
-    divide() {
+    divide(n) {
+      if(n !== undefined){
+        this.enter(n);
+      }
       let res = 0;
       if (this.size > 1) {
         this.swap();
@@ -90,6 +99,10 @@
       this.put(res);
       this.set('display',res);
       return res;
+    }
+
+    clear(){
+      super.clearStack();
     }
   }
 

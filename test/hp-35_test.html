@@ -120,16 +120,44 @@
       assert.equal(element.size, 0);
       element.enter(12);
       assert.equal(element.display, 12);
-      element.enter(3);
-      assert.equal(element.display, 3);
-      assert.equal(element.divide(), 4);
-      assert.equal(element.display, 4);
+      element.enter(0);
+      assert.equal(element.display, 0);
+      assert.equal(element.divide(), Infinity);
+      assert.equal(element.display, Infinity);
       assert.equal(element.size, 1);
-      assert.equal(element.drop(), 4);
+      assert.equal(element.drop(), Infinity);
       assert.equal(element.size, 0);
     });
 
-  });
+    test('fast entry', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+
+      element.enter(12);
+      assert.equal(element.add(12), 24);
+      assert.equal(element.divide(4), 6);
+      assert.equal(element.multiply(6), 36);
+    });
+
+    test('clear stack', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+
+      element.enter(12);
+      element.enter(12);
+      element.enter(12);
+      element.enter(12);
+      assert.equal(element.size, 4);
+      element.clear();
+      assert.equal(element.size, 0);
+      assert.equal(element.drop(), undefined);
+    });
+
+
+
+    });
 </script>
 
 </body>
