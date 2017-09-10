@@ -1,0 +1,98 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="forth-stack.html">
+
+
+<script>
+  /**
+   * `hp-35`
+   * see https://hansklav.home.xs4all.nl/rpn/
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   */
+  class Hp35 extends ForthStack {
+    constructor() {
+      super();
+    }
+
+    static get is() {
+      return 'hp-35';
+    }
+
+    static get properties() {
+      return {
+        /**
+         * current display / result
+         */
+        display:{type:Number,value:0, notify:true}
+      }
+    }
+
+    /**
+     * Enter a number
+     * @param n
+     */
+    enter(n) {
+      this.put(parseFloat(n));
+      this.set('display',parseFloat(n));
+    }
+
+    /**
+     * Process an addition
+     * @return Number
+     */
+    add() {
+      let res = 0;
+      if (this.size > 1) {
+        res = this.drop() + this.drop();
+      } else {
+        if (this.size == 1) {
+          res = this.drop();
+        }
+      }
+      this.put(res);
+      this.set('display',res);
+      return res;
+    }
+
+    /**
+     * Process a multiplication
+     * @return Number
+     */
+    multiply() {
+      let res = 0;
+      if (this.size > 1) {
+        res = this.drop() * this.drop();
+      } else {
+        if (this.size == 1) {
+          res = 0;
+        }
+      }
+      this.put(res);
+      this.set('display',res);
+      return res;
+    }
+    /**
+     * Process a division
+     * @return Number
+     */
+    divide() {
+      let res = 0;
+      if (this.size > 1) {
+        this.swap();
+        res = this.drop() / this.drop();
+      } else {
+        if (this.size == 1) {
+          res = 0;
+        }
+      }
+      this.put(res);
+      this.set('display',res);
+      return res;
+    }
+  }
+
+  window.customElements.define(Hp35.is, Hp35);
+
+</script>

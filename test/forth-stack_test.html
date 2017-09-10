@@ -26,6 +26,12 @@
   </template>
 </test-fixture>
 
+<test-fixture id="calc">
+  <template>
+    <forth-stack></forth-stack>
+  </template>
+</test-fixture>
+
 
 <script>
   suite('forth-stack', function () {
@@ -123,9 +129,10 @@
 
       element.rot();
 
-      assert.equal(element.drop(), "b");
-      assert.equal(element.drop(), "c");
+      assert.equal(element.drop(), "a");
       assert.equal(element.drop(), "d");
+      assert.equal(element.drop(), "c");
+      assert.equal(element.drop(), "b");
     });
 
     test('empty stack ', function () {
@@ -136,6 +143,26 @@
 
       assert.equal(element.drop(), "x");
       assert.equal(element.drop(), "a");
+      assert.equal(element.drop(), undefined);
+
+    });
+
+    test('stack math', function () {
+      var element = fixture('calc');
+      element.put(4);
+      element.put(2);
+      element.put(element.drop()+element.drop());
+      assert.equal(element.drop(), 6);
+
+
+      element.put(4);
+      element.dup();
+      element.put(2);
+
+      element.put(element.drop()+element.drop());
+      element.put(element.drop()*element.drop());
+      assert.equal(element.drop(), 24);
+
       assert.equal(element.drop(), undefined);
 
     });

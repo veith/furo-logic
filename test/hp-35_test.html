@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>forth-stack test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../hp-35.html">
+</head>
+<body>
+
+<test-fixture id="BasicTestFixture">
+  <template>
+    <hp-35></hp-35>
+  </template>
+</test-fixture>
+
+
+<script>
+  suite('forth-stack', function () {
+
+    test('instantiating the element with default properties works', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.nodeName, 'HP-35');
+    });
+
+    test('adding nothing', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.add(), 0);
+      assert.equal(element.display, 0);
+    });
+
+    test('adding values', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      element.enter(12);
+      assert.equal(element.display, 12);
+
+      assert.equal(element.add(), 24);
+      assert.equal(element.size, 1);
+      assert.equal(element.drop(), 24);
+      assert.equal(element.size, 0);
+
+      assert.equal(element.display, 24);
+    });
+
+
+    test('adding with one value in stack', function () {
+      var element = fixture('BasicTestFixture');
+      element.enter(12);
+
+      assert.equal(element.add(), 12);
+      assert.equal(element.size, 1);
+      assert.equal(element.drop(), 12);
+      assert.equal(element.size, 0);
+    });
+
+    test('Multiply values', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      assert.equal(element.multiply(), 144);
+      assert.equal(element.display, 144);
+      assert.equal(element.size, 1);
+      assert.equal(element.drop(), 144);
+      assert.equal(element.size, 0);
+    });
+
+    test('Multiply single value (is like by 0)', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      assert.equal(element.multiply(), 0);
+    });
+
+    test('Multiply series', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+      element.enter(12);
+      element.enter(12);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      assert.equal(element.multiply(), 144);
+      assert.equal(element.multiply(), 1728);
+      assert.equal(element.size, 1);
+      assert.equal(element.display, 1728);
+    });
+
+    test('Divide values', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      element.enter(3);
+      assert.equal(element.display, 3);
+      assert.equal(element.divide(), 4);
+      assert.equal(element.display, 4);
+      assert.equal(element.size, 1);
+      assert.equal(element.drop(), 4);
+      assert.equal(element.size, 0);
+    });
+
+    test('Divide by 0', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      element.enter(3);
+      assert.equal(element.display, 3);
+      assert.equal(element.divide(), 4);
+      assert.equal(element.display, 4);
+      assert.equal(element.size, 1);
+      assert.equal(element.drop(), 4);
+      assert.equal(element.size, 0);
+    });
+
+  });
+</script>
+
+</body>
+</html>

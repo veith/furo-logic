@@ -135,9 +135,8 @@
      */
     rot() {
       if (this._stack.length >= 3) {
-        this._move(this._stack, this._stack.length - 1, this._stack.length - 3);
-        this._move(this._stack, this._stack.length - 1, this._stack.length - 2);
-        console.dir(this._stack)
+        this._move(this._stack, 0, this._stack.length - 1);
+
       } else {
         this.swap();
       }
