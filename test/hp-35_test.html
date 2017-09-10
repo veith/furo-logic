@@ -155,9 +155,45 @@
       assert.equal(element.drop(), undefined);
     });
 
+    test('x <-> y Swap', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
 
+      element.enter(12);
+      element.enter(32);
+      assert.equal(element.display, 32);
+      element.swap();
+      assert.equal(element.display, 12);
+      element.enter(99);
+      assert.equal(element.display, 99);
+      element.swap();
+      assert.equal(element.display, 12);
 
     });
+
+    test('rotate', function () {
+      var element = fixture('BasicTestFixture');
+      element.clear();
+      assert.equal(element.display, 0);
+      assert.equal(element.size, 0);
+
+      element.enter(1);
+      element.enter(2);
+      element.enter(3);
+      element.enter(4);
+      assert.equal(element.display, 4);
+      element.roll();
+      assert.equal(element.display, 1);
+      element.roll();
+      assert.equal(element.display, 2);
+      element.roll();
+      assert.equal(element.display, 3);
+
+    });
+
+
+  });
 </script>
 
 </body>

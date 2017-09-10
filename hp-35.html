@@ -25,7 +25,7 @@
         /**
          * current display / result
          */
-        display:{type:Number,value:0, notify:true}
+        display: {type: Number, value: 0, notify: true}
       }
     }
 
@@ -35,7 +35,22 @@
      */
     enter(n) {
       this.put(parseFloat(n));
-      this.set('display',parseFloat(n));
+      this.set('display', parseFloat(n));
+    }
+
+    swap() {
+      super.swap();
+      this.set('display', this._stack[this._stack.length - 1]);
+    }
+
+
+    rot() {
+      super.rot();
+      this.set('display', this._stack[this._stack.length - 1]);
+      return this._stack[this._stack.length - 1];
+    }
+    roll() {
+      return this.rot();
     }
 
     /**
@@ -43,7 +58,7 @@
      * @return Number
      */
     add(n) {
-      if(n !== undefined){
+      if (n !== undefined) {
         this.enter(n);
       }
       let res = 0;
@@ -55,7 +70,7 @@
         }
       }
       this.put(res);
-      this.set('display',res);
+      this.set('display', res);
       return res;
     }
 
@@ -64,7 +79,7 @@
      * @return Number
      */
     multiply(n) {
-      if(n !== undefined){
+      if (n !== undefined) {
         this.enter(n);
       }
       let res = 0;
@@ -76,15 +91,16 @@
         }
       }
       this.put(res);
-      this.set('display',res);
+      this.set('display', res);
       return res;
     }
+
     /**
      * Process a division
      * @return Number
      */
     divide(n) {
-      if(n !== undefined){
+      if (n !== undefined) {
         this.enter(n);
       }
       let res = 0;
@@ -97,11 +113,11 @@
         }
       }
       this.put(res);
-      this.set('display',res);
+      this.set('display', res);
       return res;
     }
 
-    clear(){
+    clear() {
       super.clearStack();
     }
   }
