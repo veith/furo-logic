@@ -6,6 +6,7 @@
   /**
    * `hp-35`
    * see https://hansklav.home.xs4all.nl/rpn/
+   * http://h10032.www1.hp.com/ctg/Manual/c01579350
    *
    * @customElement
    * @polymer
@@ -123,6 +124,25 @@
       this.put(res);
       this.set('display', res);
       return res;
+    }
+
+    /**
+     * Process power
+     * @return Number
+     */
+    pow(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res = 0;
+      if (this.size > 1) {
+        this.swap();
+        res = Math.pow(this.drop(), this.drop());
+        this.put(res);
+        this.set('display', res);
+        return res;
+      }
+
     }
 
     /**

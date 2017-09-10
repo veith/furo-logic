@@ -208,7 +208,22 @@
       element.enter(2);
       element.xroot();
       assert.equal(element.display, 4);
-
+      element.clear();
+      element.enter(27);
+      element.xroot(3);
+      assert.equal(element.display, 3);
+    });
+    test('pow x', function () {
+      var element = fixture('BasicTestFixture');
+      element.clear();
+      element.enter(2);
+      element.enter(3);
+      element.pow();
+      assert.equal(element.display, 8);
+      element.clear();
+      element.enter(3);
+      element.pow(3);
+      assert.equal(element.display, 27);
     });
 
     test('template', function () {
