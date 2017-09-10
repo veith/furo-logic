@@ -58,7 +58,7 @@
      * @return Number
      */
     add(n) {
-      if (n !== undefined) {
+      if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res = 0;
@@ -75,11 +75,41 @@
     }
 
     /**
+     * Perform square root operation
+     */
+    sqrt(n){
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if(this.size >= 1){
+        res = Math.sqrt(this.drop());
+      }
+      this.put(res);
+      this.set('display', res);
+      return res;
+    }
+
+    xroot(n){
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if(this.size > 1){
+        this.swap();
+        res = Math.pow(this.drop(), 1/this.drop());
+        this.put(res);
+        this.set('display', res);
+        return res;
+      }
+
+    }
+    /**
      * Process a multiplication
      * @return Number
      */
     multiply(n) {
-      if (n !== undefined) {
+      if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res = 0;
@@ -100,7 +130,7 @@
      * @return Number
      */
     divide(n) {
-      if (n !== undefined) {
+      if (n !== undefined && n !== '') {
         this.enter(n);
       }
       let res = 0;

@@ -189,7 +189,32 @@
       assert.equal(element.display, 2);
       element.roll();
       assert.equal(element.display, 3);
+    });
 
+
+    test('square root', function () {
+      var element = fixture('BasicTestFixture');
+      element.clear();
+      element.enter(16);
+      element.sqrt();
+      assert.equal(element.display, 4);
+
+    });
+
+    test('x root', function () {
+      var element = fixture('BasicTestFixture');
+      element.clear();
+      element.enter(16);
+      element.enter(2);
+      element.xroot();
+      assert.equal(element.display, 4);
+
+    });
+
+    test('template', function () {
+      var element = fixture('BasicTestFixture');
+      element.clear();
+      assert.equal(element.display, 0);
     });
 
 
