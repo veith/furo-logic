@@ -50,6 +50,32 @@
       assert.equal(element.display, 24);
     });
 
+    test('substract nothing', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.substract(), 0);
+      assert.equal(element.display, 0);
+    });
+
+    test('substract values', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.display, 0);
+      element.enter(12);
+      assert.equal(element.display, 12);
+      element.enter(7);
+      assert.equal(element.display, 7);
+
+      assert.equal(element.substract(), 5);
+      assert.equal(element.size, 1);
+      assert.equal(element.drop(), 5);
+      assert.equal(element.size, 0);
+
+      assert.equal(element.display, 5);
+    });
+    test('substract from empty stack', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.substract(19), -19);
+      assert.equal(element.display, -19);
+    });
 
     test('adding with one value in stack', function () {
       var element = fixture('BasicTestFixture');

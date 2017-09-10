@@ -74,6 +74,27 @@
       this.set('display', res);
       return res;
     }
+  /**
+     * Process an addition
+     * @return Number
+     */
+    substract(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res = 0;
+      if (this.size > 1) {
+        this.swap();
+        res = this.drop() - this.drop();
+      } else {
+        if (this.size == 1) {
+          res = -this.drop();
+        }
+      }
+      this.put(res);
+      this.set('display', res);
+      return res;
+    }
 
     /**
      * Perform square root operation
@@ -134,10 +155,10 @@
       if (n !== undefined && n !== '') {
         this.enter(n);
       }
-      let res = 0;
+
       if (this.size > 1) {
         this.swap();
-        res = Math.pow(this.drop(), this.drop());
+        let res = Math.pow(this.drop(), this.drop());
         this.put(res);
         this.set('display', res);
         return res;
