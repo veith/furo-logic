@@ -181,6 +181,40 @@
       this.updateXYZT();
       return res;
     }
+    /**
+     * Perform tan operation
+     */
+    tan(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if (this.size >= 1) {
+        res = Math.tan(this.drop());
+      }
+      this.put(res);
+      this.updateXYZT();
+      return res;
+    }
+
+
+    /**
+     * Perform abs operation
+     */
+    abs(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if (this.size >= 1) {
+        res = Math.abs(this.drop());
+      }
+      this.put(res);
+      this.updateXYZT();
+      return res;
+    }
+
+
 
     /**
      * Perform exp operation

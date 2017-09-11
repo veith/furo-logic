@@ -74,6 +74,20 @@
       assert.equal(element.sin(Math.PI / 2), 1);
     });
 
+    test('absolut', function () {
+      var element = fixture('BasicTestFixture');
+      element.clear();
+      assert.equal(element.abs(-1), 1);
+      assert.equal(element.x, 1);
+    });
+
+    test('tan', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.tan(1), 1.5574077246549023);
+      assert.equal(element.x, 1.5574077246549023);
+    });
+
+
     test('exp', function () {
       var element = fixture('BasicTestFixture');
       assert.equal(element.exp(1), 2.718281828459045);
