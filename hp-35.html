@@ -217,6 +217,24 @@
 
 
     /**
+     * Perform reciprocal operation
+     */
+    reciprocal(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if (this.size >= 1) {
+        res = 1/this.drop();
+      }
+      this.put(res);
+      this.updateXYZT();
+      return res;
+    }
+
+
+
+    /**
      * Perform exp operation
      */
     exp(n) {
