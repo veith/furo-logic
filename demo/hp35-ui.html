@@ -1,6 +1,7 @@
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../flowbased-polymer/mixin.html">
-<link rel="import" href="../../paper-input/paper-input.html">
+<link rel="import" href="../../iron-input/iron-input.html">
+<link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../hp-35.html">
 
 <dom-module id="hp35-ui">
@@ -8,6 +9,9 @@
     <style>
       :host {
         display: block;
+      }
+      input{
+        text-align: right;
       }
     </style>
 
@@ -19,7 +23,14 @@
     <hr>
     x:[[_x]]
     <hr>
-    <paper-input id="input" value="{{input}}" ƒ-focus="--change"></paper-input>
+    <iron-a11y-keys keys="enter" @-keys-pressed="--enter(input)" prevent-default></iron-a11y-keys>
+    <iron-a11y-keys keys="+" @-keys-pressed="--add(input)" prevent-default></iron-a11y-keys>
+    <iron-a11y-keys keys="_" @-keys-pressed="--substract(input)" prevent-default></iron-a11y-keys>
+    <iron-a11y-keys keys="/" @-keys-pressed="--divide(input)" prevent-default></iron-a11y-keys>
+    <iron-a11y-keys keys="*" @-keys-pressed="--multiply(input)" prevent-default></iron-a11y-keys>
+
+    <iron-input bind-value="{{input}}"><input id="input" value="{{value::input}}"></iron-input>
+    <hr>
 
     <button @-click="--enter(input)">enter</button>
     <button @-click="--add(input)">+</button>
@@ -67,7 +78,6 @@
     }
 
     _clearInput() {
-
       this.set('input', '');
       self = this;
       this.$.input.focus();

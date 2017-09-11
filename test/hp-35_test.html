@@ -61,6 +61,18 @@
       assert.equal(element.ln(10), 2.302585092994046);
       assert.equal(element.x, 2.302585092994046);
     });
+    test('cos', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.cos(2* Math.PI), 1);
+      assert.equal(element.x, 1);
+    });
+
+    test('sin', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.sin(1), 0.8414709848078965);
+      assert.equal(element.x, 0.8414709848078965);
+      assert.equal(element.sin(Math.PI / 2), 1);
+    });
 
     test('exp', function () {
       var element = fixture('BasicTestFixture');

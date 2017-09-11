@@ -151,6 +151,38 @@
     }
 
     /**
+     * Perform cos operation
+     */
+    cos(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if (this.size >= 1) {
+        res = Math.cos(this.drop());
+      }
+      this.put(res);
+      this.updateXYZT();
+      return res;
+    }
+
+    /**
+     * Perform sin operation
+     */
+    sin(n) {
+      if (n !== undefined && n !== '') {
+        this.enter(n);
+      }
+      let res;
+      if (this.size >= 1) {
+        res = Math.sin(this.drop());
+      }
+      this.put(res);
+      this.updateXYZT();
+      return res;
+    }
+
+    /**
      * Perform exp operation
      */
     exp(n) {
