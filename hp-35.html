@@ -27,10 +27,43 @@
          * current x
          */
         x: {type: Number, value: 0, notify: true},
+        /**
+         * current y
+         */
         y: {type: Number, value: 0, notify: true},
+        /**
+         * current z
+         */
         z: {type: Number, value: 0, notify: true},
-        t: {type: Number, value: 0, notify: true}
+        /**
+         * current t
+         */
+        t: {type: Number, value: 0, notify: true},
+        /**
+         * the stack.
+         */
+        stack: {type: Array, readOnly: true, notify: true},
+        /**
+         * Set to true to use rad, default is deg
+         */
+        radMode: {type: Boolean, value:false},
+        /**
+         * so we dont have to calculate Math.PI / 180  every time
+         * used to calculate rad from angle
+         */
+        _PIdivby180:{type:Number, value:0.017453292519943295}
       }
+    }
+
+    static get observers() {
+      return ['_stackchange(_stack)']
+    }
+
+    /**
+     * publish the stack
+     */
+    _stackchange() {
+      this.set('stack', this._stack);
     }
 
     /**
@@ -50,11 +83,11 @@
       this.set('z', this._stack[this._stack.length - 3] || 0);
       this.set('t', this._stack[this._stack.length - 4] || 0);
       /**
-      * Fired when something in stack changes
-      * detail payload:
-      * @event stackchange
-      */
-      let customEvent = new Event('stackchange', {composed:true, bubbles: true});
+       * Fired when something in stack changes
+       * detail payload:
+       * @event stackchange
+       */
+      let customEvent = new Event('stackchange', {composed: true, bubbles: true});
       this.dispatchEvent(customEvent)
     }
 
@@ -159,7 +192,11 @@
       }
       let res;
       if (this.size >= 1) {
-        res = Math.cos(this.drop());
+        if (!this.radMode) {
+          res = Math.cos(this.drop() * this._PIdivby180);
+        }else{
+          res = Math.cos(this.drop());
+        }
       }
       this.put(res);
       this.updateXYZT();
@@ -175,12 +212,17 @@
       }
       let res;
       if (this.size >= 1) {
-        res = Math.sin(this.drop());
+        if (!this.radMode) {
+          res = Math.sin(this.drop() * this._PIdivby180);
+        }else{
+          res = Math.sin(this.drop());
+        }
       }
       this.put(res);
       this.updateXYZT();
       return res;
     }
+
     /**
      * Perform tan operation
      */
@@ -190,7 +232,11 @@
       }
       let res;
       if (this.size >= 1) {
-        res = Math.tan(this.drop());
+        if (!this.radMode) {
+          res = Math.tan(this.drop() * Math.PI / 180);
+        }else{
+          res = Math.tan(this.drop());
+        }
       }
       this.put(res);
       this.updateXYZT();
@@ -215,7 +261,6 @@
     }
 
 
-
     /**
      * Perform reciprocal operation
      */
@@ -225,13 +270,12 @@
       }
       let res;
       if (this.size >= 1) {
-        res = 1/this.drop();
+        res = 1 / this.drop();
       }
       this.put(res);
       this.updateXYZT();
       return res;
     }
-
 
 
     /**

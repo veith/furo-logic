@@ -11,7 +11,8 @@
                 "lcov"
             ],
             "include": [
-                "/forth-stack.html"
+                "/forth-stack.html",
+                "/hp-35.html"
             ],
             "exclude": [],
             "thresholds": {

@@ -3,6 +3,7 @@
 <link rel="import" href="../../iron-input/iron-input.html">
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../hp-35.html">
+<link rel="import" href="concat-string.html">
 
 <dom-module id="hp35-ui">
   <template>
@@ -12,6 +13,12 @@
       }
       input{
         text-align: right;
+      }
+      button{
+        border: 1px solid gainsboro;
+        color:white;
+        background-color: #2d2d2d;
+        font-family: monospace;
       }
     </style>
 
@@ -29,15 +36,19 @@
     <iron-a11y-keys keys="/" @-keys-pressed="--divide(input)" prevent-default></iron-a11y-keys>
     <iron-a11y-keys keys="*" @-keys-pressed="--multiply(input)" prevent-default></iron-a11y-keys>
 
+
     <iron-input bind-value="{{input}}"><input id="input" value="{{value::input}}"></iron-input>
     <hr>
-
     <button @-click="--enter(input)">enter</button>
     <button @-click="--add(input)">+</button>
     <button @-click="--substract(input)">-</button>
     <button @-click="--multiply(input)">*</button>
     <button @-click="--divide(input)">/</button>
     <button @-click="--clear">clear</button>
+
+    <button @-click="--number1(digitOne)">1</button>
+    <concat-string string="{{input}}" ƒ-concat="--number1"></concat-string>
+
     <hp-35 ƒ-add="--add"
            ƒ-substract="--substract"
            ƒ-multiply="--multiply"
@@ -73,7 +84,8 @@
 
     static get properties() {
       return {
-        empty: {type: String, value: ''}
+        empty: {type: String, value: ''},
+        digitOne: {type: String, value: '1'}
       }
     }
 

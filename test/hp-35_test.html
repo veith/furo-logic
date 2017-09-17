@@ -61,17 +61,24 @@
       assert.equal(element.ln(10), 2.302585092994046);
       assert.equal(element.x, 2.302585092994046);
     });
+
     test('cos', function () {
       var element = fixture('BasicTestFixture');
-      assert.equal(element.cos(2* Math.PI), 1);
-      assert.equal(element.x, 1);
+      assert.equal(element.cos(360), 1);
+      assert.equal(element.cos(180), -1);
+
     });
 
     test('sin', function () {
       var element = fixture('BasicTestFixture');
+      assert.equal(element.sin(1), 0.01745240643728351);
+      element.radMode = true;
       assert.equal(element.sin(1), 0.8414709848078965);
-      assert.equal(element.x, 0.8414709848078965);
-      assert.equal(element.sin(Math.PI / 2), 1);
+      element.radMode = false;
+
+
+
+
     });
 
     test('absolut', function () {
@@ -83,8 +90,12 @@
 
     test('tan', function () {
       var element = fixture('BasicTestFixture');
+      assert.equal(element.tan(2), 0.03492076949174773);
+      assert.equal(element.tan(45), 0.9999999999999999);
+      element.radMode = true;
       assert.equal(element.tan(1), 1.5574077246549023);
-      assert.equal(element.x, 1.5574077246549023);
+      element.radMode = false;
+
     });
    test('reciprocal', function () {
       var element = fixture('BasicTestFixture');
@@ -190,6 +201,10 @@
       assert.equal(element.size, 1);
       assert.equal(element.drop(), 4);
       assert.equal(element.size, 0);
+
+      element.clear();
+      element.divide(3);
+      assert.equal(element.x, 0);
     });
 
     test('Divide by 0', function () {
@@ -276,6 +291,8 @@
       element.enter(16);
       element.sqrt();
       assert.equal(element.x, 4);
+      element.sqrt(25);
+      assert.equal(element.x, 5);
 
     });
 

@@ -1,0 +1,36 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+
+
+<script>
+    /**
+     * `concat-string`
+     *
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     * @mixes FBPMixin
+     */
+    class ConcatString extends (Polymer.Element) {
+        constructor() {
+            super();
+        }
+
+        static get is() {
+            return 'concat-string';
+        }
+        static get properties() {
+            return {
+              string:{type:String, notify:true}
+            }
+        }
+
+        concat(s){
+          console.log(s)
+          this.set('string',this.string + s);
+        }
+    }
+
+    window.customElements.define(ConcatString.is, ConcatString);
+
+</script>

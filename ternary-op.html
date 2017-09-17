@@ -1,0 +1,39 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<script>
+    /**
+     * `ternary-op`
+     *
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     * @mixes FBPMixin
+     */
+    class TernaryOp extends (Polymer.Element) {
+        constructor() {
+            super();
+        }
+
+        static get is() {
+            return 'ternary-op';
+        }
+        static get properties() {
+            return {
+              q:{type:Object, observer:'check'},
+              a:Object,
+              b:Object,
+              out:{type:Object, notify:true}
+            }
+        }
+      check(q){
+
+console.log(q)
+            this.set('out', q? this.a: this.b);
+
+        }
+    }
+
+    window.customElements.define(TernaryOp.is, TernaryOp);
+
+</script>
