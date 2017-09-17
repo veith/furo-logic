@@ -1,39 +1,47 @@
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../polymer/polymer-element.html">
 
 <script>
-    /**
-     * `ternary-op`
-     *
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     * @mixes FBPMixin
-     */
-    class TernaryOp extends (Polymer.Element) {
-        constructor() {
-            super();
-        }
-
-        static get is() {
-            return 'ternary-op';
-        }
-        static get properties() {
-            return {
-              q:{type:Object, observer:'check'},
-              a:Object,
-              b:Object,
-              out:{type:Object, notify:true}
-            }
-        }
-      check(q){
-
-console.log(q)
-            this.set('out', q? this.a: this.b);
-
-        }
+  /**
+   * `ternary-op` evaluates a `condition` and sets `out` with the appropriate value from `true-expression` or `false-expression`.
+   *
+   *
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   * @mixes FBPMixin
+   */
+  class TernaryOp extends (Polymer.Element) {
+    constructor() {
+      super();
     }
 
-    window.customElements.define(TernaryOp.is, TernaryOp);
+    static get is() {
+      return 'ternary-op';
+    }
+
+    static get properties() {
+      return {
+        /**
+         * Boolean expression or something which resolves to true or false
+         *
+         */
+        condition: {type: Object},
+        trueExpression: Object,
+        falseExpression: Object,
+        out: {type: Object, notify: true}
+      }
+    }
+    static get observers(){
+      return ['check(condition, trueExpression, falseExpression)']
+    }
+
+    check() {
+      this.set('out', this.condition ? this.trueExpression : this.falseExpression);
+      return this.out;
+    }
+  }
+
+  window.customElements.define(TernaryOp.is, TernaryOp);
 
 </script>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>forth-stack test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../ternary-op.html">
+</head>
+<body>
+
+<test-fixture id="BasicTestFixture">
+  <template>
+    <ternary-op></ternary-op>
+  </template>
+</test-fixture>
+
+
+<script>
+  suite('forth-stack', function () {
+
+    test('instantiating the element with default properties works', function () {
+      var element = fixture('BasicTestFixture');
+      assert.equal(element.nodeName, 'TERNARY-OP');
+    });
+
+
+    test('ohne reihenfolge', function () {
+      var element = fixture('BasicTestFixture');
+      element.condition = true;
+      element.trueExpression = 'A';
+      element.falseExpression = 'B';
+      assert.equal(element.out, 'A');
+      element.condition = false;
+      element.check();
+      assert.equal(element.out, 'B');
+    });
+
+    test('trigger a', function () {
+      var element = fixture('BasicTestFixture');
+      element.trueExpression = 'A';
+      element.falseExpression = 'B';
+      element.condition = true;
+      assert.equal(element.out, 'A');
+      element.check();
+      assert.equal(element.out, 'A');
+    });
+
+
+    test('trigger b', function () {
+      var element = fixture('BasicTestFixture');
+      element.trueExpression = 'A';
+      element.falseExpression = 'B';
+      element.condition = false;
+      assert.equal(element.out, 'B');
+
+      element.check();
+      assert.equal(element.out, 'B');
+    });
+
+
+
+  });
+</script>
+
+</body>
+</html>

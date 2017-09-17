@@ -12,7 +12,8 @@
             ],
             "include": [
                 "/forth-stack.html",
-                "/hp-35.html"
+                "/hp-35.html",
+                "/ternary-op.html"
             ],
             "exclude": [],
             "thresholds": {
