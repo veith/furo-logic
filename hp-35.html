@@ -158,13 +158,15 @@
       if (n !== undefined && n !== '') {
         this.enter(n);
       }
-      let res;
+
       if (this.size >= 1) {
+        let res;
         res = Math.sqrt(this.drop());
+        this.put(res);
+        this.updateXYZT();
+        return res;
       }
-      this.put(res);
-      this.updateXYZT();
-      return res;
+
     }
 
     /**

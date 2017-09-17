@@ -64,13 +64,26 @@
 
     test('cos', function () {
       var element = fixture('BasicTestFixture');
+      element.clear();
+      assert.equal(element.cos(), undefined);
+
+      element.enter(360);
+      assert.equal(element.cos(), 1);
+
       assert.equal(element.cos(360), 1);
       assert.equal(element.cos(180), -1);
+      element.radMode = true;
+      assert.equal(element.cos(0), 1);
+      element.radMode = false;
 
     });
 
     test('sin', function () {
       var element = fixture('BasicTestFixture');
+      element.clear();
+      assert.equal(element.sin(), undefined);
+      element.enter(1);
+      assert.equal(element.sin(), 0.01745240643728351);
       assert.equal(element.sin(1), 0.01745240643728351);
       element.radMode = true;
       assert.equal(element.sin(1), 0.8414709848078965);
@@ -90,6 +103,11 @@
 
     test('tan', function () {
       var element = fixture('BasicTestFixture');
+      element.clear();
+      assert.equal(element.tan(), undefined);
+
+      element.enter(2);
+      assert.equal(element.tan(), 0.03492076949174773);
       assert.equal(element.tan(2), 0.03492076949174773);
       assert.equal(element.tan(45), 0.9999999999999999);
       element.radMode = true;
@@ -294,6 +312,9 @@
       element.sqrt(25);
       assert.equal(element.x, 5);
 
+      element.clear();
+      element.sqrt();
+      assert.equal(element.x, 0);
     });
 
     test('x root', function () {
